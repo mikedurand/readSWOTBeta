@@ -2,8 +2,8 @@
 
 clear all; close all;
 
-addpath ./src     %replace this line with local path to : https://github.com/mikedurand/readSWOTBeta
-uselib('aprime')  %replace this line with local path to : https://github.com/mikedurand/SWOTAprimeCalcs
+addpath ~/GitHub/ReadSWOTBeta     %replace this line with local path to : https://github.com/mikedurand/readSWOTBeta
+addpath ~/GitHub/SWOTAprimeCalcs  %replace this line with local path to : https://github.com/mikedurand/SWOTAprimeCalcs
 
 % define passes and cycle variables
 DefinePassCycle;
