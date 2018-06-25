@@ -5,26 +5,10 @@ clear all; close all;
 addpath ./src     %replace this line with local path to : https://github.com/mikedurand/readSWOTBeta
 uselib('aprime')  %replace this line with local path to : https://github.com/mikedurand/SWOTAprimeCalcs
 
-%specs
-NODATA=-9999;
-Cycle=1:9;
-nCycle=length(Cycle);
-Pass=[249 264 527];
-ObsDay=[9 10 19];
+% define passes and cycle variables
+DefinePassCycle;
 
-nPass=length(Pass);
-Passes=repmat(Pass,1,nCycle);
-Passes=Passes(1:end-2); %this is because for Cycle 9, we only have Pass 249.
-nObs=length(Passes);
-Cycles=reshape((Cycle'*ones(1,nPass))',nPass*nCycle,1)';
-Cycles=Cycles(1:end-2); %this is because for Cycle 9, we only have Pass 249.
-tStart=datenum(2009,1,0,0,0,0);
-tObs=[];
-for i=1:nCycle
-    tObs=[tObs tStart+ObsDay+(i-1)*21];
-end
-tObs=tObs(1:end-2); %this is because for Cycle 9, we only have Pass 249.
-DataDir='v20/';  %replace with path to example dataset: go.osu.edu/swotbeta
+DataDir='./v20/';  %replace with path to example dataset: go.osu.edu/swotbeta
 
 % read reaches & nodes
 [SWOTReaches,TrueReaches,SWOTNodes,TrueNodes]=ReadShapeData(Cycles,Passes,tObs,DataDir);
@@ -452,29 +436,6 @@ datetick
 ylabel('River width, m')
 legend('True node #1','True node #2','SWOT node #1','SWOT node #2','Location','Best')
 
-figure(28)
-nid=375; % 736 works great! 1 doesn't work.
-MakePlot=true;
-[Wcon,Hcon,igood] = ComputeConstrainedHW(Hn(nid,:),Wn(nid,:),3,.4,30,MakePlot);
-
-plot([nanmin(Wn(nid,:)) nanmax(Wn(nid,:))],[nanmin(Wn(nid,:)) nanmax(Wn(nid,:))],'k-'); 
-hold on;
-plot(Wnt(nid,igood),Wn(nid,igood),'ro','LineWidth',2,'MarkerSize',10); 
-plot(Wnt(nid,igood),Wcon,'bx','LineWidth',2,'MarkerSize',10); 
-hold off
-set(gca,'FontSize',14)
-xlabel('True Width, m')
-ylabel('SWOT Width, m')
-legend('1:1','Observations','Constrained Obs','Location','Best')
-title(['Widths for node #' num2str(nid) '/' num2str(NxNode)])
-grid on;
-
-WRMS_ObsNode=rms(Wn(nid,igood)-Wnt(nid,igood));
-WRMS_ConNode=rms(Wcon-Wnt(nid,igood));
-
-figure(29)
-plot(FD,nanstd(Hnt,[],2),FD,nanstd(Hnt-Hn,[],2))
-
 %% et al.: le geoid!
-figure(30)
+figure(28)
 plot(FD,[TrueNodes(1).A.Geoid_modl])
