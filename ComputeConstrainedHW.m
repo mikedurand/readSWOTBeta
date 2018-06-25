@@ -1,6 +1,6 @@
 %compute constrained width and height data for one reach or node
 
-function [Wcon,Hcon,igood] = ComputeConstrainedHW(Hobs,Wobs,nReg,stdH,stdW,MakePlot)
+function [Wcon,Hcon,igood,dAhat] = ComputeConstrainedHW(Hobs,Wobs,nReg,stdH,stdW,MakePlot)
 
 igood=(~isnan(Wobs) & ~isnan(Hobs));
 nObs=sum(igood);
