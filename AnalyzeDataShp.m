@@ -321,6 +321,10 @@ subplot(121)
 cdfplot(nPix(:))
 subplot(122)
 plot(nPix(:),Wn(:)-Wnt(:),'.')
+set(gca,'FontSize',14)
+grid on
+xlabel('Number of pixels used to compute inundated area')
+ylabel('Width error, m')
 
 figure(18) 
 plot(FD,Hn(iSort{5},7),'.'); hold on;
