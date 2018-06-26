@@ -7,7 +7,18 @@ nObs=sum(igood);
 
 Hobs=Hobs(igood); Wobs=Wobs(igood);
 
-[p,xbreak,iout,hval,wval]=CalcWHFitsEIV(Hobs,Wobs,nReg,stdH,stdW);        
+Hbar=median(Hobs); 
+Wbar=median(Wobs);
+
+m_zz=cov(Wobs,Hobs);
+
+if (m_zz(1,1)-stdW^2)/stdW^2<2 || (m_zz(2,2)-stdH^2)/stdH^2<2
+    %noisy width method starts here
+    Wcon=Wobs; Hcon=Hobs; igood=[]; dAhat=[];
+    return
+else
+    [p,xbreak,iout,hval,wval]=CalcWHFitsEIV(Hobs,Wobs,nReg,stdH,stdW);        
+end
 
 if MakePlot
     figure
@@ -25,11 +36,6 @@ if MakePlot
     title('Height-width fits & obs.')
     grid on
 end
-
-Hbar=median(Hobs); 
-Wbar=median(Wobs);
-
-m_zz=cov(Wobs,Hobs);
 
 dAHbar=CalculatedAEIV(Hbar,Wbar,xbreak,p,nReg,0,stdW^2,stdH^2,m_zz,nObs); %sample calculation
 

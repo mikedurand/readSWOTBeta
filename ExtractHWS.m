@@ -21,6 +21,7 @@ latn=ExtractData(TrueNodes,'Lat_Node',NODATA,NxNode,ObsNodeIDs,'Node');
 lonn=ExtractData(TrueNodes,'Lon_Node',NODATA,NxNode,ObsNodeIDs,'Node');
 ReachIDnt=ExtractData(TrueNodes,'Reach_ID',NODATA,NxNode,ObsNodeIDs,'Node');
 NodeID=ExtractData(TrueNodes,'Node_ID',NODATA,NxNode,ObsNodeIDs,'Node');
+nPix=ExtractData(TrueNodes,'N_gd_pix',NODATA,NxNode,ObsNodeIDs,'Node');
 % Hsign=ExtractData(SWOTNodes,'N_Hght_un',NODATA); %argh these are currently nans
 
 nReach=size(Hr,1);

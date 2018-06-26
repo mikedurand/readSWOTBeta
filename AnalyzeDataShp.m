@@ -316,8 +316,13 @@ figure(18)
 plot(RL,Pass249RMSESlope,'o',RL,Pass264RMSESlope,'o',RL,Pass527RMSESlope,'o','LineWidth',2) 
 
 %% nodes
+figure(17)
+subplot(121)
+cdfplot(nPix(:))
+subplot(122)
+plot(nPix(:),Wn(:)-Wnt(:),'.')
 
-figure(17) 
+figure(18) 
 plot(FD,Hn(iSort{5},7),'.'); hold on;
 plot(FD,Hn(iSort{6},8),'.');
 plot(FD,Hn(iSort{7},9),'.'); hold off;
@@ -328,21 +333,21 @@ legend(datestr(tObs(7:9)'),'Location','Best')
 title('Passes 249, 264 and 527 from Cycle 3')
 
 
-figure(18)
+figure(19)
 hist(Err.NodeHeight.Allv,50)
 set(gca,'FontSize',14)
 ylabel('Height Error, m')
 title('SWOT height errors for nodes')
 
  
-figure(19)
+figure(20)
 plot(FD,Err.NodeHeight.All,'.')
 set(gca,'FontSize',14)
 xlabel('Flow distance, km')
 ylabel('Height Error, m')
 title('SWOT height errors for nodes')
 
-figure(20)
+figure(21)
 subplot(131)
 xt=XTDn(:,i249);
 hist(xt(:)./1000)
@@ -363,7 +368,7 @@ set(gca,'FontSize',14)
 title('Pass 527')
 xlabel('Cross-track dist., km')
 
-figure(21)
+figure(22)
 C=get(groot,'defaultAxesColorOrder');
 plot(FD,Wnt(:,[7 8 9]),'LineWidth',2); hold on;
 h=plot(FD,Wn(:,[7 8 9]),'.','LineWidth',2); hold off;
@@ -376,7 +381,7 @@ ylabel('Width, m')
 title('Passes 249, 264 and 527 from Cycle 3')
 legend(datestr(tObs(7:9)'),'Location','Best')
 
-figure(22)
+figure(23)
 XTDnBinBound=[10:62].*1000;
 for i=1:length(XTDnBinBound)-1
     j=XTDn(:)>=XTDnBinBound(i) & XTDn(:)<XTDnBinBound(i+1) & ~isnan(Err.NodeWidth.All(:));
@@ -389,8 +394,7 @@ ylabel('Node Width RMSE, m')
 title('Node widths')
 grid on;
 
-
-figure(23)
+figure(24)
 XTDnBinBound=[10:62].*1000;
 for i=1:length(XTDnBinBound)-1
     j=XTDn(:)>=XTDnBinBound(i) & XTDn(:)<XTDnBinBound(i+1) & ~isnan(Err.NodeHeight.All(:));
@@ -402,7 +406,7 @@ xlabel('Cross-track distance, km')
 ylabel('Node height RMSE, cm')
 grid on
 
-figure(24)
+figure(25)
 i=11;  
 % j=2:nNode-1;
 j=1:nNode;
@@ -413,18 +417,18 @@ xlabel('Flow distance, km')
 ylabel('Node widths, m')
 title(['Pass ' num2str(Passes(i)) ', Cycle ' num2str(Cycles(i))])
 
-figure(25)
+figure(26)
 wcut=100;
 hist(Err.NodeWidth.Allv(abs(Err.NodeWidth.Allv)<wcut),50)
 
-figure(26)
+figure(27)
 hist(Wnt(:),50)
 set(gca,'XLim',[0 300],'FontSize',14)
 xlabel('River Width, m')
 ylabel('Count')
 title('True Node Widths')
 
-figure(27)
+figure(28)
 nids=[1 2];
 plot(tObs,Wnt(nids,:),'x-','LineWidth',2); hold on;
 h=plot(tObs,Wn(nids,:),'o','LineWidth',2); hold off;
@@ -437,5 +441,5 @@ ylabel('River width, m')
 legend('True node #1','True node #2','SWOT node #1','SWOT node #2','Location','Best')
 
 %% et al.: le geoid!
-figure(28)
+figure(29)
 plot(FD,[TrueNodes(1).A.Geoid_modl])
