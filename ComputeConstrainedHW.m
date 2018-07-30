@@ -1,8 +1,8 @@
 %compute constrained width and height data for one reach or node
 
-function [Wcon,Hcon,igood,dAhat] = ComputeConstrainedHW(Hobs,Wobs,nReg,stdH,stdW,MakePlot)
+function [Wcon,Hcon,igood,dAhat] = ComputeConstrainedHW(Hobs,Wobs,nReg,stdH,stdW,MakePlot,nPix)
 
-igood=(~isnan(Wobs) & ~isnan(Hobs));
+igood=(~isnan(Wobs) & ~isnan(Hobs)) & nPix>200;
 nObs=sum(igood);
 
 Hobs=Hobs(igood); Wobs=Wobs(igood);
@@ -12,7 +12,7 @@ Wbar=median(Wobs);
 
 m_zz=cov(Wobs,Hobs);
 
-if (m_zz(1,1)-stdW^2)/stdW^2<2 || (m_zz(2,2)-stdH^2)/stdH^2<2
+if (m_zz(1,1)-stdW^2)/stdW^2<2 || (m_zz(2,2)-stdH^2)/stdH^2<2 || nObs<10
     %noisy width method starts here
     Wcon=Wobs; Hcon=Hobs; igood=[]; dAhat=[];
     return

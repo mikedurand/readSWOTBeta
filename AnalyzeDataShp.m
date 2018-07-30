@@ -8,7 +8,7 @@ addpath ~/GitHub/SWOTAprimeCalcs  %replace this line with local path to : https:
 % define passes and cycle variables
 DefinePassCycle;
 
-DataDir='./v20/';  %replace with path to example dataset: go.osu.edu/swotbeta
+DataDir='~/Box Sync/Data/SWOT/v20/';  %replace with path to example dataset: go.osu.edu/swotbeta
 
 % read reaches & nodes
 [SWOTReaches,TrueReaches,SWOTNodes,TrueNodes]=ReadShapeData(Cycles,Passes,tObs,DataDir);
